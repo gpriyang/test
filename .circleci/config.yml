@@ -11,7 +11,9 @@ jobs:
       - setup_remote_docker
       - run:
           name: Running E2E tests with JUnit reporter
-          command: docker-compose run -v /root/config.json:/root/config.json colliectl:latest
+          command: |
+              docker-compose run -v /root/config.json:/root/config.json colliectl:latest
+              echo $value
 workflows:
   version: 2
   cypress-workflow:
