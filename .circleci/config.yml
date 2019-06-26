@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  test:
+    docker:
+      # the Docker image with Cypress dependencies
+      - image: python:2.7.14
+    working_directory: ~/app
+    parallelism: 1
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Running E2E tests with JUnit reporter
+          command: docker-compose run -v /root/config.json:/root/config.json colliectl:latest
+workflows:
+  version: 2
+  cypress-workflow:
+    jobs:
+      - test:
+          context: attester
