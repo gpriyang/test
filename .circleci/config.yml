@@ -12,6 +12,7 @@ jobs:
       - run:
           name: Running E2E tests with JUnit reporter
           command: |
+              pip install aws-cli
               $(aws ecr get-login --no-include-email --region ap-south-1)
               curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)"  -o /usr/local/bin/docker-compose
               mv /usr/local/bin/docker-compose /usr/bin/docker-compose
