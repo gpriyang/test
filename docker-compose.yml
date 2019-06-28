@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  web_app:
+  test:
     image: 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
     volumes:
       - home/circleci/.docker/config.json:/root/.docker/config.json
