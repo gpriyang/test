@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Running E2E tests with JUnit reporter
           command: |
-             pip install awscli
+             sudo pip install awscli
              $(aws ecr get-login --no-include-email --region ap-south-1)
              docker run --rm -it -v /root/.docker/config.json:/root/.docker/config.json  -v /var/run/docker.sock:/var/run/docker.sock  --env-file env.txt -v ~/collie_logs:/tmp/collie_logs 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
 workflows:
