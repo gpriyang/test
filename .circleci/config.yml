@@ -15,13 +15,19 @@ jobs:
              sudo pip install awscli
              eval $(aws ecr get-login --no-include-email --region ap-south-1)
       - run:
-          name: Run the test images
+          name: Create a volume 
           command: |   
              docker create -v /root/.docker/ --name configs ubuntu
-             docker cp /home/circleci/.docker/config.json configs:/root/.docker/
-             docker run --rm  --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
+             docker cp /home/circleci/.docker/config.json configs:/root/.docker/          
+      - run:
+          name: Run the test images
+          command: |   
+             docker run --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
+      - run:
+          name: Store the artifacts
+          command: |   
              docker run --name app 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
-             docker cp app:/tmp/collie_logs ./
+             docker cp app:/tmp/collie_logs ./             
 workflows:
   version: 2
   test:
