@@ -13,13 +13,7 @@ jobs:
           name: Install and login AWS configuration
           command: |
              sudo pip install awscli
-             $(aws ecr get-login --no-include-email --region ap-south-1)
-      - run:
-          name: Install docker compose
-          command: |
-             curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-             chmod +x ~/docker-compose
-             sudo mv ~/docker-compose /usr/local/bin/docker-compose
+             eval $(aws ecr get-login --no-include-email --region ap-south-1)
       - run:
           name: Run the test images
           command: |   
