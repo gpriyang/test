@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Run the test images
           command: |   
-             docker run --rm -it 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
+             docker run --rm -it  -v /var/run/docker.sock:/var/run/docker.sock 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
 workflows:
   version: 2
   test:
