@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Run the test images
           command: |   
-             docker create --name configs -v /root/.docker/
+             docker create -v /root/.docker/ --name configs ubuntu
              docker cp /home/circleci/.docker/config.json configs:/root/.docker/
              docker run --rm  --volume-from configs -v /var/run/docker.sock:/var/run/docker.sock  271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
 workflows:
