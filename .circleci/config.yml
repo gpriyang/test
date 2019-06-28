@@ -23,7 +23,6 @@ jobs:
       - run:
           name: Run the test images
           command: |   
-             docker cp /home/circleci/.docker/config.json 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:~/.docker/config.json
              docker run --rm 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
 workflows:
   version: 2
