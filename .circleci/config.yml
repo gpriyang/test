@@ -20,6 +20,7 @@ jobs:
               docker run --rm -it -v /root/.docker/config.json:/root/.docker/config.json  -v /var/run/docker.sock:/var/run/docker.sock  --env-file env.txt -v ~/collie_logs:/tmp/collie_logs 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
 workflows:
   version: 2
-  jobs:
-      - test:
-          context: colliectl
+  test:
+      jobs:
+          - test:
+              context: colliectl
