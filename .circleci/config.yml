@@ -4,7 +4,6 @@ jobs:
     docker:
       # the Docker image with Cypress dependencies
       - image: circleci/python:2.7.14
-    working_directory: ~/app
     parallelism: 1
     steps:
       - checkout
