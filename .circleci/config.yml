@@ -17,7 +17,6 @@ jobs:
       - run:
           name: Run the test images
           command: |   
-             docker login -u$Docker_user -p$Docker_pwd https://271300522025.dkr.ecr.ap-south-1.amazonaws.com
              docker create -v /root/.docker/ --name configs alphine:3.4 /bin/true
              docker cp /home/circleci/.docker/config.json configs:/root/.docker/
              docker run --rm  --volume-from configs -v /var/run/docker.sock:/var/run/docker.sock  271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
