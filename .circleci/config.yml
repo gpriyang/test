@@ -26,7 +26,7 @@ jobs:
       - run:
           name: Store the artifacts
           command: |   
-             docker run --name app 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
+             docker run --name app 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
              docker cp app:/tmp/collie_logs ./             
 workflows:
   version: 2
