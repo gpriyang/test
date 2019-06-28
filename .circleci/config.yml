@@ -25,7 +25,7 @@ jobs:
           name: Run the test images
           command: |   
              docker-compose -f docker-compose.yml up -d
-             docker run --rm --name test 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
+             docker run --rm 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
 workflows:
   version: 2
   test:
