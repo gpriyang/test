@@ -15,9 +15,17 @@ jobs:
              sudo pip install awscli
              $(aws ecr get-login --no-include-email --region ap-south-1)
       - run:
+          name: Install docker compose
+          command: |
+             curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+             chmod +x ~/docker-compose
+             sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run:
           name: Run the test images
-          command: |             
-             docker run --rm -it -v /root/.docker/config.json:/root/.docker/config.json  -v /var/run/docker.sock:/var/run/docker.sock  -v ~/collie_logs:/tmp/collie_logs 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
+          command: |   
+              set -x
+             docker-compose up -d
+             docker run --rm -it 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
 workflows:
   version: 2
   test:
