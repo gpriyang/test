@@ -3,18 +3,20 @@ jobs:
   test:
     docker:
       # the Docker image with Cypress dependencies
-      - image: alpine:3.7
+      - image: circleci/python:2.7.14
     working_directory: ~/app
     parallelism: 1
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Running E2E tests with JUnit reporter
+          name: Install and login AWS configuration
           command: |
-             pip install awscli
+             sudo pip install awscli
              $(aws ecr get-login --no-include-email --region ap-south-1)
-             ls /home/circleci/.docker
+      - run:
+          name: Run the test images
+          command: |             
              docker run --rm -it -v /root/.docker/config.json:/root/.docker/config.json  -v /var/run/docker.sock:/var/run/docker.sock  -v ~/collie_logs:/tmp/collie_logs 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
 workflows:
   version: 2
