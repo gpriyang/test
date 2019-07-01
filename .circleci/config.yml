@@ -35,8 +35,8 @@ jobs:
               NAME=271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
               CACHE_PATH=~/collie_logs
               set -x
-              docker run --name $NAME $NAME /tmp/collie_logs
-              docker cp $NAME:/tmp/collie_logs $CACHE_PATH
+              docker run --name app $NAME /tmp/collie_logs
+              docker cp app:/tmp/collie_logs $CACHE_PATH
               docker rm -f $NAME                
       - store_artifacts:
           path: ./
