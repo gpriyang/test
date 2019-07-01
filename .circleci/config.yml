@@ -21,17 +21,11 @@ jobs:
              docker cp /home/circleci/.docker/config.json configs:/root/.docker/          
       - run:
           name: Run the test images
-          command: |   
-             docker run --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
-      - run:
-          name: Copy the test images results
-          command: |      
-              CACHE_PATH=~/collie_logs
-              set -x 
-              docker cp 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:/tmp/collie_logs $CACHE_PATH
-              docker rm -f $NAME
+          command: |  
+             mkdir ./collie_logs
+             docker run --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  -v ./collie_logs:/tmp/collie_logs  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
       - store_artifacts:
-          path: ~/collie-logs
+          path: ./collie-logs
                
 workflows:
   version: 2
