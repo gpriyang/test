@@ -23,6 +23,11 @@ jobs:
           name: Run the test images
           command: |   
              docker run --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
+      - run:
+          name: Copy the test images results
+          command: |      
+              docker run --name app 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
+              docker cp app:/tmp/collie_logs ./
       - store_artifacts:
           path: /tmp/collie_logs
           destination: ./             
