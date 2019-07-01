@@ -28,6 +28,16 @@ jobs:
           command: |      
               docker run --name app --entrypoint /bin/bash 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
               docker cp app:/tmp/collie_logs ./
+# Back up the same volume to circle cache
+      - run:
+        name: Backing up bundler cache from docker volumes
+        command: |
+              NAME=271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
+              CACHE_PATH=~/collie_logs
+              set -x
+              docker run --name $NAME $NAME /tmp/collie_logs
+              docker cp $NAME:/tmp/collie_logs $CACHE_PATH
+              docker rm -f $NAME                
       - store_artifacts:
           path: ./
                
