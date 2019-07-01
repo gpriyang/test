@@ -26,7 +26,7 @@ jobs:
       - run:
           name: Copy the test images results
           command: |      
-              docker run --name app 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
+              docker run --name app --entrypoint /bin/bash 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
               docker cp app:/tmp/collie_logs ./
       - store_artifacts:
           path: /tmp/collie_logs
