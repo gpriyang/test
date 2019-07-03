@@ -18,12 +18,13 @@ jobs:
       - run:
           name: Create a volume  and Run the test images
           command: |  
+             mkdir -p ~/collie_logs/
              docker create -v /root/.docker/ --name configs ubuntu
              docker cp /home/circleci/.docker/config.json configs:/root/.docker/               
-             docker run --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  -v  ~/collie_logs:/tmp/collie_logs  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
+             docker run --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  -v  ~/collie_logs/:/tmp/collie_logs  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
              
-      - store_artifacts:
-          path: ~/collie_logs
+      - store_test_results:
+          path: ~/collie_logs/
                
 workflows:
   version: 2
