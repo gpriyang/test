@@ -24,7 +24,7 @@ jobs:
              docker run --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  -v /home/circleci/collie_logs:/tmp/collie_logs  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
              
       - store_artifacts:
-          path: /home/circleci/collie-logs
+          path: /home/circleci/collie_logs
                
 workflows:
   version: 2
