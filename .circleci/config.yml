@@ -13,16 +13,14 @@ jobs:
           name: Install and login AWS configuration
           command: |
              sudo pip install awscli
-             eval $(aws ecr get-login --no-include-email --region ap-south-1)
+             eval $(aws ecr get-login --no-include-email --region ap-south-1) 
+        
       - run:
-          name: Create a volume 
-          command: |   
-             docker create -v /root/.docker/ --name configs ubuntu
-             docker cp /home/circleci/.docker/config.json configs:/root/.docker/          
-      - run:
-          name: Run the test images
+          name: Create a volume  and Run the test images
           command: |  
              mkdir /home/circleci/collie_logs
+             docker create -v /root/.docker/ --name configs ubuntu
+             docker cp /home/circleci/.docker/config.json configs:/root/.docker/               
              docker run --volumes-from configs-v /var/run/docker.sock:/var/run/docker.sock  -v /home/circleci/collie_logs:/tmp/collie_logs  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
              
       - store_artifacts:
