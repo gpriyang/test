@@ -25,7 +25,7 @@ jobs:
              docker cp configs:/tmp/collie_logs /home/circleci/collie_logs
              
       - store_artifacts:
-          path: /home/circleci/collie_logs
+          path: /home/circleci/
                
 workflows:
   version: 2
