@@ -1,9 +1,0 @@
-version: '2'
-
-services:
-  test:
-    image: 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest
-    volumes:
-      - '/home/circleci/.docker/config.json:/root/.docker/config.json'
-      - '/var/run/docker.sock:/var/run/docker.sock'
-      - './collie_logs:/tmp/collie_logs'
