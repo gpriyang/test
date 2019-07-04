@@ -22,14 +22,13 @@ jobs:
              docker create -v /root/.docker/ --name configs ubuntu
              docker cp /home/circleci/.docker/config.json configs:/root/.docker/
              docker run --name app --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  -v  /tmp/collie_logs/:/tmp/collie_logs  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
-             docker run --name app --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  -v  /tmp/collie_logs/:/tmp/collie_logs  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i attester -s team-tiger1 -r smoke -t sample             
+             docker run --name attester --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock  -v  /tmp/collie_logs/:/tmp/collie_logs  --env-file env.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i attester -s team-tiger1 -r smoke -t sample             
              docker cp app:/tmp/collie_logs /tmp/collie_logs
+             docker cp attester:/tmp/collie_logs /tmp/collie_logs             
              
       - store_artifacts:
           path: /tmp/collie_logs/
           destination: /home/circleci/
-
-      
                
 workflows:
   version: 2
