@@ -28,9 +28,9 @@ jobs:
           path: /tmp/collie_logs/
           destination: /home/circleci/
           
-      - store_test_results:
-          path: /tmp/collie_logs/
-          destination: ./
+      #- store_test_results:
+      #    path: /tmp/collie_logs/
+      #    destination: ./
       
                
 workflows:
