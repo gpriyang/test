@@ -26,7 +26,7 @@ jobs:
       - store_artifacts:
           path: /tmp/collie_logs/
           destination: ./
-      -store_test_results:
+      - store_test_results:
           path: /tmp/collie_logs/
           destination: ./
       
