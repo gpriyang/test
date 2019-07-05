@@ -16,7 +16,7 @@ jobs:
              eval $(aws ecr get-login --no-include-email --region ap-south-1)
              
       - run:
-          name: Install and login AWS configuration
+          name: Create a env file for docker container from circleci contexts
           command: |
              python env_var.py             
              
