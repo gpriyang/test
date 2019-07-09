@@ -19,12 +19,26 @@ jobs:
           name: Create a env file for docker container from circleci contexts
           command: |
              python env_var.py             
-             
+
+      - run:
+          name: Create a env file for docker container from circleci contexts
+          command: |
+            cat <<EOF >collie.conf
+            [collie]
+            cleanup_test_containers=$cleanup_test_containers
+            [infra]
+            DNS=$http_user
+            docker_registry=$docker_registry
+            http_user=$http_user
+            http_pass=$http_pass
+            EOF 
+          
       - run:
           name: Create a volume  and Run the test images
           command: |  
-             docker create -v /root/.docker/ --name configs ubuntu
+             docker create -v /root/.docker/ -v /root/collie --name configs ubuntu
              docker cp /home/circleci/.docker/config.json configs:/root/.docker/
+             docker cp collie_conf configs:/root/collie/collie.conf
              docker run --name app --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock   --env-file env_var.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
              docker run --name attester --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock --env-file env_var.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i attester -s team-tiger1 -r smoke -t sample             
              docker cp app:/tmp/collie_logs /home/circleci/
