@@ -2,7 +2,6 @@ version: 2
 jobs:
   test:
     docker:
-      # the Docker image with Cypress dependencies
       - image: circleci/python:2.7.14
     parallelism: 1
     steps:
@@ -21,7 +20,7 @@ jobs:
              python env_var.py             
 
       - run:
-          name: Create a env file for docker container from circleci contexts
+          name: Create a coollie.conf file for docker container from circleci contexts
           command: |
             cat <<EOF >collie.conf
             [collie]
