@@ -36,7 +36,7 @@ jobs:
           command: |  
              docker create -v /root/.docker/ -v /collie/config/ --name configs ubuntu
              docker cp /home/circleci/.docker/config.json configs:/root/.docker/
-             docker cp collie.conf configs:/collie/config/collie.conf
+             #docker cp collie.conf configs:/collie/config/collie.conf
              docker run --name app --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock   --env-file env_var.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i logging -s team-tiger1 -r smoke
              docker run --name attester --volumes-from configs -v /var/run/docker.sock:/var/run/docker.sock --env-file env_var.txt 271300522025.dkr.ecr.ap-south-1.amazonaws.com/colliectl:latest -i attester -s team-tiger1 -r smoke -t sample             
              docker cp app:/tmp/collie_logs /home/circleci/
