@@ -31,11 +31,12 @@ jobs:
             docker_registry=$docker_registry
             http_user=$http_user
             http_pass=$http_pass
-            EOF 
+            EOF         
           
       - run:
           name: Create a volume  and Run the test images
           command: |  
+             cat collie.conf
              docker create -v /root/.docker/ -v /collie/config/ --name configs ubuntu
              docker cp /home/circleci/.docker/config.json configs:/root/.docker/
              docker cp collie.conf configs:/collie/config/collie.conf
